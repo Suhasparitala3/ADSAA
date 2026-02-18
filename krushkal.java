@@ -1,3 +1,4 @@
+//Program to implement Krushkal's Algorithm
 public class krushkal {
 
     static class Edge {
