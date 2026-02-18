@@ -1,46 +1,52 @@
+//Java program to find the BFT of a graph with adjacency matrix representation
+import java.util.*;
 
-// Breadth First Search (BFS) implementation in Java
-import java.util.Queue;
-import java.util.LinkedList;
+public class BFT{
+	private int n; //number of vertices
+    	private int[][] adjMatrix;
 
-public class BreadthFirstSearch {
+     	BFT(int n){
+        		this.n = n;
+        		adjMatrix = new int[n][n];
+    	}
 
-    static void bfs(int[][] graph, int startVertex) {
-        int vertices = graph.length;
-        boolean[] visited = new boolean[vertices];
-        Queue<Integer> queue = new LinkedList<>();
+    	// Add edge (undirected graph)
+    	void addEdge(int u, int v) {
+        		adjMatrix[u][v] = 1;
+        		adjMatrix[v][u] = 1;
+    	}
 
-        visited[startVertex] = true;
-        queue.add(startVertex);
+    	// Breadth First Traversal
+    	void bft(int startVertex) {
+        		boolean[] visited = new boolean[n];
+        		Queue<Integer> queue = new LinkedList<>();
 
-        System.out.print("BFS Traversal: ");
+        		visited[startVertex] = true;
+        		queue.add(startVertex);
 
-        while (!queue.isEmpty()) {
-            int vertex = queue.poll();
-            System.out.print(vertex + " ");
+        		System.out.print("Breadth First Traversal: ");
 
-            for (int i = 0; i < vertices; i++) {
-                if (graph[vertex][i] == 1 && !visited[i]) {
-                    visited[i] = true;
-                    queue.add(i);
-                }
-            }
-        }
-    }
+        		while (!queue.isEmpty()) {
+           			int current = queue.poll();
+            			System.out.print(current + " ");
 
-    public static void main(String[] args) {
-        int vertices = 5;
+            			for (int i = 0; i < n; i++) {
+                				if (adjMatrix[current][i] == 1 && !visited[i]) {
+                    				visited[i] = true;
+                    				queue.add(i);
+                				}
+            			}
+        		}
+    	}
 
-        // Adjacency matrix representation
-        int[][] graph = {
-                { 0, 1, 1, 0, 0 },
-                { 1, 0, 1, 1, 0 },
-                { 1, 1, 0, 1, 1 },
-                { 0, 1, 1, 0, 1 },
-                { 0, 0, 1, 1, 0 }
-        };
+	public static void main(String[] args) {
+        		BFT graph = new BFT(5);
 
-        System.out.println("Breadth First Search (BFS):");
-        bfs(graph, 0);
-    }
+        		graph.addEdge(0, 1);
+        		graph.addEdge(0, 2);
+        		graph.addEdge(1, 3);
+        		graph.addEdge(1, 4);
+
+        		graph.bft(0);
+    	}
 }
