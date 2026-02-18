@@ -1,3 +1,4 @@
+//program to implement Quick Sort
 import java.util.Scanner;
 
 public class QuickSort {
